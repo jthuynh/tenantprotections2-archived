@@ -6,7 +6,7 @@ import copy from './assets/copy/'
 import Navbar from './components/Navbar.jsx';
 
 import Home from './pages/Home.jsx';
-import Calculator from './pages/Calculator.jsx';
+import Calculator from './pages/calculator/Calculator.jsx';
 import Eligibility from './pages/Eligibility.jsx';
 import About from './pages/About.jsx';
 import Resources from './pages/Resources.jsx';
