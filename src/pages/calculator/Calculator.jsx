@@ -3,6 +3,7 @@ import { Component } from 'react';
 import Start from './Start';
 import AddEdit from './AddEdit';
 import Results from './Results';
+import { zipLookup, rentcapLookup } from '../../assets/data/';
 
 const START = 1;
 const ADDEDIT = 2;
@@ -14,6 +15,7 @@ class CalculatorPage extends Component {
 
     this.state = {
       zip: null,
+      city: null,
       rentHistory: [],
       currentStep: START,
       editZip: true,
@@ -50,14 +52,58 @@ class CalculatorPage extends Component {
         return (
           <Results
             zip={this.state.zip}
+            city={this.state.city}
             rentHistory={this.state.rentHistory}
             addMoreRent={this.addMoreRent}
             editRent={this.editRent}
             editZip={this.editZip}
+            city={this.state.city}
           />
         )
     }
   }
+
+  // state variable edit functions
+
+  updateZip(zip) {
+    console.log(zipLookup(zip));
+    this.setState({zip: zip, city: zipLookup(zip), currentStep: this.getNextStep(this.state.rentHistory), editZip: false});
+  }
+
+  addRent(rent, startDate) {
+    let rentHistory = [...this.state.rentHistory, {rent: rent, startDate: startDate, maxIncrease: this.getMaxIncrease(startDate)}];
+    rentHistory.sort((a, b) => a.startDate < b.startDate ? 1 : -1);
+
+    this.setState({rentHistory: rentHistory, currentStep: this.getNextStep(rentHistory)});
+  }
+
+  // ---
+
+  // pagestate change functions
+
+  editZip() {
+    this.setState({editZip: true, currentStep: ADDEDIT});
+  }
+
+  editRent(editRent, editStartDate) {
+    let rentHistory = [];
+    this.state.rentHistory.map(({rent, startDate, maxIncrease}) => {
+      if (startDate !== editStartDate) {
+        rentHistory.push({rent: rent, startDate: startDate, maxIncrease: maxIncrease});
+      }
+      return null;
+    });
+
+    this.setState({rentHistory: rentHistory, editRent: {rent: editRent, startDate: editStartDate}, currentStep: ADDEDIT});
+  }
+
+  addMoreRent() {
+    this.setState({currentStep: ADDEDIT});
+  }
+
+  // ---
+
+  // helpers
 
   getNextStep(rentHistory) {
     if (rentHistory.length > 1) {
@@ -68,35 +114,8 @@ class CalculatorPage extends Component {
     }
   }
 
-  updateZip(zip) {
-    this.setState({zip: zip, currentStep: this.getNextStep(this.state.rentHistory), editZip: false});
-  }
-
-  editZip() {
-    this.setState({editZip: true, currentStep: ADDEDIT});
-  }
-
-  addRent(rent, startDate) {
-    let rentHistory = [...this.state.rentHistory, {rent: rent, startDate: startDate}];
-    rentHistory.sort((a, b) => a.startDate < b.startDate ? 1 : -1);
-
-    this.setState({rentHistory: rentHistory, currentStep: this.getNextStep(rentHistory)});
-  }
-
-  editRent(editRent, editStartDate) {
-    let rentHistory = [];
-    this.state.rentHistory.map(({rent, startDate}) => {
-      if (startDate !== editStartDate) {
-        rentHistory.push({rent: rent, startDate: startDate});
-      }
-      return null;
-    });
-
-    this.setState({rentHistory: rentHistory, editRent: {rent: editRent, startDate: editStartDate}, currentStep: ADDEDIT});
-  }
-
-  addMoreRent() {
-    this.setState({currentStep: ADDEDIT});
+  getMaxIncrease(startDate) {
+    return rentcapLookup(this.state.city, startDate);
   }
 }
 

@@ -9,7 +9,7 @@ class AboutPage extends Component {
       <div>
         {copy.default}
       </div>
-    )
+    );
   }
 }
 

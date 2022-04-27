@@ -1,0 +1,14 @@
+{
+	"Oakland": {
+		"subsidized_elig": "N",
+		"built_before": "12/31/1982",
+		"sfh_corp_elig": "N",
+		"units_min": "2",
+		"onsite_elig": "Y",
+		"dorms_elig": "Y",
+		"hotels_elig": "Y",
+		"senior_elig": "Y",
+		"elig_notes": "Dorm/senior/hotel may be exempt depending on circumstances; exception for capital imp.",
+		"inelig_notes": "May still be covered if: rejected due to being a newer building, but unit is unpermitted or lacks certificate of occupancy."
+	}
+}
