@@ -8,7 +8,7 @@ class RentTimeline extends Component {
     return (
       <ul>
         <li key={counter}>
-          zipcode: {this.props.zip}, [city]&nbsp;
+          zipcode: {this.props.zip}, {this.props.city}&nbsp;
           <button type="button" onClick={() => this.props.editZip()}>Edit</button>
         </li>
         {

@@ -18,6 +18,7 @@ class Results extends Component {
           showMore={true}
         />
         <RentAlert
+          city={this.props.city}
           rentHistory={this.props.rentHistory}
         />
         <p>

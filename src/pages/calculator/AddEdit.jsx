@@ -62,6 +62,7 @@ class AddEdit extends Component {
         <h1>Rent Calculator</h1>
       	<RentTimeline
           zip={this.props.calculatorState.zip}
+          city={this.props.calculatorState.city}
           rentHistory={this.props.calculatorState.rentHistory}
           editZip={this.props.editZip}
           editRent={this.props.editRent}
