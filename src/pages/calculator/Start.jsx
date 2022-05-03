@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { Component } from 'react';
+import Button from '../../components/Button';
 
 class Start extends Component {
   constructor(props) {
     super(props);
-    this.state = {zip: props.zip}
+    this.state = { zip: props.zip }
 
     this.validate = this.validate.bind(this);
   }
 
   handleChange(e) {
-    this.setState({zip: e.target.value});
+    this.setState({ zip: e.target.value });
   }
 
   validate() {
@@ -21,19 +22,22 @@ class Start extends Component {
 
   render() {
     return (
-      <div>
+      <div className='container'>
         <h1>Rent Calculator</h1>
-      	<p>
-      	  If you received an increase, you can use our calculator to determine what the allowable increase is under the law, and if your rent increase exceeds the limit.
+        <p>
+          If you received an increase, you can use our calculator to determine what the allowable increase is under the law, and if your rent increase exceeds the limit.
         </p>
         <p>
           Before using this calculator make sure you check your eligibility first!
         </p>
-        <p>
-          What is your zipcode?
-        </p>
-        <input defaultValue={this.state.zip} onChange={(e) => this.handleChange(e)} />
-        <button type="button" onClick={this.validate}>Next</button>
+        <div className='input-container'>
+          <p>
+            What is your zipcode?
+          </p>
+          <input defaultValue={this.state.zip} onChange={(e) => this.handleChange(e)} />
+          <Button type="button" onClick={this.validate} text={'Next'} btnType={'primarybtn'} />
+
+        </div>
       </div>
     )
   }

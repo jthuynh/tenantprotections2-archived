@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Component } from 'react';
 import RentTimeline from '../../components/RentTimeline';
+import Button from '../../components/Button';
+import ZipcodeInput from '../../components/ZipcodeInput';
 
 const styles = {
   editRent: {
@@ -23,15 +25,15 @@ class AddEdit extends Component {
   }
 
   handleZipChange(e) {
-    this.setState({zip: e.target.value});
+    this.setState({ zip: e.target.value });
   }
 
   handleRentChange(e) {
-    this.setState({rent: e.target.value});
+    this.setState({ rent: e.target.value });
   }
 
   handleDateChange(e) {
-    this.setState({startDate: e.target.value});
+    this.setState({ startDate: e.target.value });
   }
 
   validateZip() {
@@ -44,7 +46,7 @@ class AddEdit extends Component {
     //validate input
 
     this.props.addRent(this.state.rent, this.state.startDate);
-    this.setState({rent: "", startDate: ""});
+    this.setState({ rent: "", startDate: "" });
   }
 
   render() {
@@ -59,34 +61,44 @@ class AddEdit extends Component {
 
     return (
       <div>
-        <h1>Rent Calculator</h1>
-      	<RentTimeline
-          zip={this.props.calculatorState.zip}
-          city={this.props.calculatorState.city}
-          rentHistory={this.props.calculatorState.rentHistory}
-          editZip={this.props.editZip}
-          editRent={this.props.editRent}
-          showMore={false}
-        />
-        <div css={styles.editZip}>
-          <p>
-            What is your zipcode?
-          </p>
-          <input value={this.state.zip} onChange={(e) => this.handleZipChange(e)} />
-          <button type="button" onClick={this.validateZip}>Next</button>
-        </div>
-        <div css={styles.editRent}>
-          <p>
-            What {this.props.calculatorState.rentHistory.length === 0 ? "is your newest" : "was your previous"} rent total?
-          </p>
-          <input value={this.state.rent} onChange={(e) => this.handleRentChange(e)} />
-          <p>
-            What is the start date of the rent increase?
-          </p>
-          <input value={this.state.startDate} onChange={(e) => this.handleDateChange(e)} />
-          <button type="button" onClick={this.validateRent}>
-            {this.props.calculatorState.rentHistory.length === 0 ? "Next" : "Calculate"}
-          </button>
+        <h1 className='rent-title'>Rent Calculator</h1>
+        <div className='container'>
+          <RentTimeline
+            zip={this.props.calculatorState.zip}
+            city={this.props.calculatorState.city}
+            rentHistory={this.props.calculatorState.rentHistory}
+            editZip={this.props.editZip}
+            editRent={this.props.editRent}
+            showMore={false}
+          />
+          <div css={styles.editZip}>
+            <p>
+              What is your zipcode?
+            </p>
+            <input value={this.state.zip} onChange={(e) => this.handleZipChange(e)} />
+            <Button type="button" onClick={this.validateZip} btnType={'primarybtn'} text={'Next'} />
+          </div>
+          <div className='input-container'>
+            <p>
+              What {this.props.calculatorState.rentHistory.length === 0 ? "is your newest" : "was your previous"} rent total?
+            </p>
+            <div className="input-icon">
+              <input value={this.state.rent} onChange={(e) => this.handleRentChange(e)} />
+              <i>$</i>
+            </div>
+
+            <p>
+              What is the start date of {this.props.calculatorState.rentHistory.length === 0 ? "the rent increase" : "your previous rent"}?
+            </p>
+            <input placeholder="MM/DD/YYYY" value={this.state.startDate} onChange={(e) => this.handleDateChange(e)} />
+            <Button
+              type="button"
+              onClick={this.validateRent}
+              btnType={'primarybtn'}
+              text={this.props.calculatorState.rentHistory.length === 0 ? "Next" : "Calculate"} />
+
+          </div>
+
         </div>
       </div>
     )

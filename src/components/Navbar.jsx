@@ -8,18 +8,26 @@ import strings from '../assets/copy/'
 const styles = {
   navbar: {
     width: '100%',
-    backgroundColor: '#ccc',
+    backgroundColor: '#172F6E',
+    color: '#FFF',
     marginBottom: '10px',
+    height: '80px',
     [mediaQueries(breakpoints.tablet)]: {
     },
     [mediaQueries(breakpoints.mobile)]: {
     }
   },
   languageSelect: {
-    margin: '4px',
+    margin: '8px',
   },
   navLink: {
-    paddingRight: '8px'
+    paddingRight: '8px',
+    margin: '4px',
+    textDecoration: 'none',
+  },
+  header: {
+    padding: '0 25px 0 25px',
+    color: '#FFF'
   }
 };
 
@@ -57,7 +65,8 @@ function NavSelect(props) {
 class Navbar extends Component {
   render() {
     return (
-      <div css={styles.navbar}>
+      <div css={styles.navbar} className='nav-container'>
+        <h1 css={styles.header}>CTP</h1>
         <NavSelect />
         <Link css={styles.navLink} to="">{strings.nav.home}</Link>
         <Link css={styles.navLink} to="calculator">{strings.nav.calculator}</Link>
